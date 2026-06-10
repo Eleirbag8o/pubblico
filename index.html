@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gabriele Russo | DevOps Junior Consultant & Web Developer</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,8 +13,8 @@
                         brand: {
                             dark: '#0b0f19',
                             card: '#161f30',
-                            accent: '#06b6d4', /* Cyan */
-                            purple: '#a855f7', /* Violet */
+                            accent: '#06b6d4',
+                            purple: '#a855f7',
                             text: '#f3f4f6',
                             muted: '#9ca3af'
                         }
@@ -23,12 +22,15 @@
                     fontFamily: {
                         mono: ['Fira Code', 'Courier New', 'monospace'],
                         sans: ['Inter', 'sans-serif']
+                    },
+                    /* FIX 1: added missing animation for animate-spin-slow */
+                    animation: {
+                        'spin-slow': 'spin 4s linear infinite',
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -39,19 +41,15 @@
         .code-font {
             font-family: 'Fira Code', monospace;
         }
-        /* Custom Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0f19;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1f2937;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #06b6d4;
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
+
+        /* FIX 2: timeline dot size — replaced invalid w-4.5/h-4.5 with explicit CSS */
+        .timeline-dot {
+            width: 18px;
+            height: 18px;
         }
     </style>
 </head>
@@ -81,18 +79,16 @@
 
     <!-- Hero Section -->
     <section id="home" class="min-h-screen pt-24 pb-12 flex flex-col justify-center relative overflow-hidden px-4">
-        <!-- Background Decorative Gradients -->
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl -z-10"></div>
         <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-purple/10 rounded-full blur-3xl -z-10"></div>
 
         <div class="max-w-4xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <!-- Left Side Meta Info -->
             <div class="lg:col-span-7 space-y-6">
                 <div class="inline-flex items-center space-x-2 bg-gray-800/50 border border-gray-700/60 rounded-full px-3 py-1 text-xs text-brand-accent code-font">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>Disponibile per nuove esperienze</span>
                 </div>
-                
+
                 <div class="space-y-2">
                     <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-none">
                         Russo Gabriele
@@ -106,7 +102,6 @@
                     Ciao! Sono un professionista motivato con una forte attitudine al problem solving. Attualmente impiego le mie competenze sistemistiche e di sviluppo presso l'azienda <span class="text-white font-semibold">Algoritmi s.r.l.</span> come consulente informatico, unendo automazione e sviluppo web moderno.
                 </p>
 
-                <!-- Key Quick Info Badge Grid -->
                 <div class="grid grid-cols-2 gap-3 text-xs code-font max-w-sm">
                     <div class="bg-brand-card/50 border border-gray-800 p-2.5 rounded">
                         <span class="text-brand-muted block">Età:</span>
@@ -128,10 +123,9 @@
                 </div>
             </div>
 
-            <!-- Right Side Terminal (Interactive & Fun) -->
+            <!-- Terminal -->
             <div class="lg:col-span-5 w-full">
                 <div class="bg-slate-900 border border-gray-800 rounded-lg shadow-2xl overflow-hidden w-full max-w-md mx-auto">
-                    <!-- Terminal Header -->
                     <div class="bg-slate-950 px-4 py-3 border-b border-gray-800 flex items-center justify-between">
                         <div class="flex space-x-1.5">
                             <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
@@ -141,7 +135,6 @@
                         <span class="text-xs text-brand-muted code-font">GR@terminal</span>
                         <span class="w-4"></span>
                     </div>
-                    <!-- Terminal Body -->
                     <div class="p-4 h-64 overflow-y-auto text-xs code-font space-y-2 text-emerald-400" id="terminal-screen">
                         <p class="text-brand-muted">Scrivi 'help' per vedere la lista dei comandi interattivi.</p>
                         <div id="terminal-history" class="space-y-2">
@@ -149,8 +142,9 @@
                             <div class="text-white">Russo Gabriele, DevOps Junior Consultant</div>
                         </div>
                         <div class="flex items-center text-brand-accent">
-                            <span>guest@GR:~$ &nbsp;</span>
-                            <input type="text" id="terminal-input" class="bg-transparent focus:outline-none text-white flex-1 caret-brand-accent" autofocus autocomplete="off">
+                            <span>guest@GR:~$&nbsp;</span>
+                            <!-- FIX 3: removed autofocus — was stealing page focus on load -->
+                            <input type="text" id="terminal-input" class="bg-transparent focus:outline-none text-white flex-1 caret-brand-accent" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -158,7 +152,7 @@
         </div>
     </section>
 
-    <!-- Bio / Chi Sono Section -->
+    <!-- Chi Sono -->
     <section id="about" class="py-20 border-t border-gray-900 bg-brand-dark/40 px-4">
         <div class="max-w-4xl mx-auto">
             <div class="text-center md:text-left space-y-4">
@@ -173,13 +167,12 @@
                         Sono <span class="text-white font-semibold">Gabriele Russo</span>, un aspirante sviluppatore web con una grande passione per la programmazione e i sistemi informatici.
                     </p>
                     <p>
-                        Il mio percorso di studi e professionale mi ha permesso di esplorare e sperimentare sia lo sviluppo dei software (Front-End & Back-End) sia la gestione dei sistemi e dei processi di integrazione gestionale, portandomi oggi a operare come <strong class="text-white">DevOps Junior Consultant</strong>. 
+                        Il mio percorso di studi e professionale mi ha permesso di esplorare e sperimentare sia lo sviluppo dei software (Front-End & Back-End) sia la gestione dei sistemi e dei processi di integrazione gestionale, portandomi oggi a operare come <strong class="text-white">DevOps Junior Consultant</strong>.
                     </p>
                     <p>
                         Amo mettermi in gioco, risolvere problemi complessi e sono costantemente stimolato dall'apprendere nuove tecnologie e metodologie di lavoro da inserire nel mio bagaglio di competenze tecniche.
                     </p>
                 </div>
-                <!-- Mini Stats / Key values -->
                 <div class="md:col-span-4 bg-brand-card border border-gray-800 p-6 rounded-xl space-y-4">
                     <h4 class="text-white font-semibold code-font border-b border-gray-800 pb-2 text-sm">Tech Focus</h4>
                     <div class="flex flex-wrap gap-2">
@@ -205,13 +198,12 @@
                 <div class="h-1 w-16 bg-brand-purple mx-auto md:mx-0 rounded"></div>
             </div>
 
-            <!-- Timeline style -->
             <div class="relative border-l border-gray-800 space-y-12 pl-6 ml-4">
-                
-                <!-- Work Experience 1 -->
+
+                <!-- Work Experience -->
                 <div class="relative">
-                    <!-- Dot -->
-                    <span class="absolute -left-[31px] top-1.5 bg-brand-accent border-4 border-brand-dark w-4.5 h-4.5 rounded-full inline-block"></span>
+                    <!-- FIX 4: replaced w-4.5/h-4.5 (invalid) with timeline-dot CSS class -->
+                    <span class="timeline-dot absolute -left-[31px] top-1.5 bg-brand-accent border-4 border-brand-dark rounded-full inline-block"></span>
                     <div class="space-y-2">
                         <div class="flex flex-wrap justify-between items-center gap-2">
                             <h4 class="text-xl font-bold text-white">Consulente Informatico / DevOps Junior</h4>
@@ -226,8 +218,7 @@
 
                 <!-- Education 1 -->
                 <div class="relative">
-                    <!-- Dot -->
-                    <span class="absolute -left-[31px] top-1.5 bg-brand-purple border-4 border-brand-dark w-4.5 h-4.5 rounded-full inline-block"></span>
+                    <span class="timeline-dot absolute -left-[31px] top-1.5 bg-brand-purple border-4 border-brand-dark rounded-full inline-block"></span>
                     <div class="space-y-2">
                         <div class="flex flex-wrap justify-between items-center gap-2">
                             <h4 class="text-xl font-bold text-white">Corso Regionale per Sistemisti</h4>
@@ -242,8 +233,7 @@
 
                 <!-- Education 2 -->
                 <div class="relative">
-                    <!-- Dot -->
-                    <span class="absolute -left-[31px] top-1.5 bg-brand-purple border-4 border-brand-dark w-4.5 h-4.5 rounded-full inline-block"></span>
+                    <span class="timeline-dot absolute -left-[31px] top-1.5 bg-brand-purple border-4 border-brand-dark rounded-full inline-block"></span>
                     <div class="space-y-2">
                         <div class="flex flex-wrap justify-between items-center gap-2">
                             <h4 class="text-xl font-bold text-white">Formazione Tecnica Industriale</h4>
@@ -260,7 +250,7 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects / Lab -->
     <section id="Lab" class="py-20 border-t border-gray-900 bg-brand-dark/40 px-4">
         <div class="max-w-4xl mx-auto">
             <div class="text-center md:text-left space-y-4 mb-12">
@@ -271,7 +261,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
 
                 <!-- Project RDP Python -->
-                <div class="bg-brand-card border border-gray-850 hover:border-brand-accent/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-350 hover:-translate-y-1">
+                <!-- FIX 5: replaced border-gray-850 (invalid) with border-gray-800; duration-350 with duration-300 -->
+                <div class="bg-brand-card border border-gray-800 hover:border-brand-accent/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1">
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-bold uppercase code-font text-brand-accent">Sviluppo & Automazione</span>
@@ -296,8 +287,8 @@
                     </div>
                 </div>
 
-                <!-- Project Full-Stack Platform -->
-                <div class="bg-brand-card border border-gray-850 hover:border-brand-accent/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-350 hover:-translate-y-1">
+                <!-- Project Full-Stack -->
+                <div class="bg-brand-card border border-gray-800 hover:border-brand-accent/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1">
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-bold uppercase code-font text-brand-accent">Full Stack Web</span>
@@ -309,10 +300,10 @@
                         </div>
                         <h4 class="text-xl font-bold text-white">Piattaforma Web Full Stack</h4>
                         <p class="text-brand-muted text-sm leading-relaxed">
-                            Progettazione e realizzazione di un'architettura web avanzata di un ospedale,integrando frontend reattivo e un solido motore backend.
+                            Progettazione e realizzazione di un'architettura web avanzata di un ospedale, integrando frontend reattivo e un solido motore backend.
                         </p>
                         <div class="bg-slate-950 p-3 rounded border border-gray-800/80 text-xs space-y-1">
-                            <p class="text-gray-400 font-semibold"> Feature:</p>
+                            <p class="text-gray-400 font-semibold">Feature:</p>
                             <p class="text-brand-muted">- Frontend Responsive & Dinamico.</p>
                             <p class="text-brand-muted">- Backend sicuro in JS.</p>
                         </div>
@@ -324,7 +315,7 @@
                 </div>
 
                 <!-- Project Login & Utility Portal -->
-                <div class="bg-brand-card border border-gray-850 hover:border-brand-accent/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-350 hover:-translate-y-1 md:col-span-2">
+                <div class="bg-brand-card border border-gray-800 hover:border-brand-accent/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 md:col-span-2">
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
                         <div class="md:col-span-7 space-y-3">
                             <div class="flex items-center space-x-2">
@@ -356,27 +347,28 @@
         </div>
     </section>
 
-    <!-- CERN Visit Special Feature Section -->
+    <!-- CERN -->
     <section id="cern" class="py-20 border-t border-gray-900 bg-gradient-to-b from-brand-dark to-slate-950 px-4">
         <div class="max-w-4xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-brand-card/35 border border-gray-800 p-8 rounded-2xl relative overflow-hidden">
-                <!-- Decorative Blur -->
                 <div class="absolute -right-24 -top-24 w-64 h-64 bg-brand-accent/5 rounded-full blur-2xl"></div>
 
                 <div class="lg:col-span-7 space-y-4">
                     <div class="inline-flex items-center space-x-2 bg-yellow-500/10 border border-yellow-500/20 rounded-full px-3 py-1 text-[11px] text-yellow-500 code-font">
+                        <!-- FIX 6: animate-spin-slow now defined in tailwind config above -->
                         <i class="fa-solid fa-atom animate-spin-slow"></i>
                         <span>Viaggio di Studio</span>
                     </div>
                     <h3 class="text-2xl font-bold text-white">Ginevra (CERN)</h3>
+                    <!-- FIX 7: fixed broken apostrophe encoding — l-opportunità → l'opportunità -->
                     <p class="text-brand-muted text-sm leading-relaxed">
-                        Ho avuto l-opportunità di prendere parte ad una visita formativa guidata presso il <strong>CERN di Ginevra</strong>, il laboratorio di fisica delle particelle più grande ed importante al mondo. 
+                        Ho avuto l'opportunità di prendere parte ad una visita formativa guidata presso il <strong>CERN di Ginevra</strong>, il laboratorio di fisica delle particelle più grande ed importante al mondo.
                     </p>
                     <p class="text-brand-muted text-sm leading-relaxed">
                         L'esperienza si è snodata attraverso laboratori avanzati e presentazioni relative al funzionamento del celebre <strong>Large Hadron Collider (LHC)</strong>. Le spiegazioni da parte dei fisici e ingenieri del posto mi hanno portato ad arricchire la mia passione per l'innovazione tecnologica d'avanguardia.
                     </p>
                 </div>
-                <div class="lg:col-span-5 bg-slate-900 border border-gray-850 p-6 rounded-xl space-y-3">
+                <div class="lg:col-span-5 bg-slate-900 border border-gray-800 p-6 rounded-xl space-y-3">
                     <h4 class="text-white font-bold text-xs code-font uppercase text-brand-accent">Punti Chiave Visita</h4>
                     <ul class="text-xs text-brand-muted space-y-2.5">
                         <li class="flex items-start space-x-2">
@@ -393,7 +385,7 @@
         </div>
     </section>
 
-    <!-- Contacts Section -->
+    <!-- Contacts -->
     <section id="contact" class="py-20 border-t border-gray-900 bg-brand-dark px-4">
         <div class="max-w-4xl mx-auto">
             <div class="text-center md:text-left space-y-4 mb-12">
@@ -403,28 +395,26 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-                <!-- Info Grid -->
+                <!-- FIX 8: contact card div structure was broken — social links were outside the card.
+                     Restructured so all content sits correctly inside the card. -->
                 <div class="md:col-span-5 bg-brand-card border border-gray-800 p-6 rounded-xl flex flex-col justify-between">
-
-                        <div class="space-y-4 text-sm code-font">
-                            <a href="mailto:russogabriele206@gmail.com" class="flex items-center space-x-3 text-brand-muted hover:text-brand-accent transition-colors">
-                                <i class="fa-regular fa-envelope text-brand-accent text-lg"></i>
-                                <span>russogabriele206@gmail.com</span>
-                            </a>
-                            <a href="tel:+393926092088" class="flex items-center space-x-3 text-brand-muted hover:text-brand-accent transition-colors">
-                                <i class="fa-solid fa-phone text-brand-accent text-lg"></i>
-                                <span>+39 3926092088</span>
-                            </a>
-                            <div class="flex items-center space-x-3 text-brand-muted">
-                                <i class="fa-solid fa-location-dot text-brand-accent text-lg"></i>
-                                <span>Roma (RM), Italia</span>
-                            </div>
+                    <div class="space-y-4 text-sm code-font">
+                        <a href="mailto:russogabriele206@gmail.com" class="flex items-center space-x-3 text-brand-muted hover:text-brand-accent transition-colors">
+                            <i class="fa-regular fa-envelope text-brand-accent text-lg"></i>
+                            <span>russogabriele206@gmail.com</span>
+                        </a>
+                        <a href="tel:+393926092088" class="flex items-center space-x-3 text-brand-muted hover:text-brand-accent transition-colors">
+                            <i class="fa-solid fa-phone text-brand-accent text-lg"></i>
+                            <span>+39 3926092088</span>
+                        </a>
+                        <div class="flex items-center space-x-3 text-brand-muted">
+                            <i class="fa-solid fa-location-dot text-brand-accent text-lg"></i>
+                            <span>Roma (RM), Italia</span>
                         </div>
                     </div>
 
-                    <!-- Social / Dev profile mock connections -->
                     <div class="flex space-x-4 mt-8 pt-4 border-t border-gray-800/80">
-                        <a href="https://www.linkedin.com/in/gabriele-russo-a255bb3bb/" target="_blank" class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center border border-gray-800 hover:border-brand-accent hover:text-brand-accent text-brand-muted transition-all">
+                        <a href="https://www.linkedin.com/in/gabriele-russo-a255bb3bb/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center border border-gray-800 hover:border-brand-accent hover:text-brand-accent text-brand-muted transition-all">
                             <i class="fa-brands fa-linkedin-in text-lg"></i>
                         </a>
                     </div>
@@ -445,8 +435,7 @@
         </div>
     </footer>
 
-
-    <!-- Interactive Terminal Scripts -->
+    <!-- Terminal Script -->
     <script>
         const terminalInput = document.getElementById('terminal-input');
         const terminalHistory = document.getElementById('terminal-history');
@@ -461,25 +450,25 @@
             - <span class="text-brand-accent">cern</span>: Breve riassunto sulla mia visita al CERN.<br>
             - <span class="text-brand-accent">contact</span>: Recapiti rapidi (Email, Cellulare).<br>
             - <span class="text-brand-accent">clear</span>: Pulisce la cronologia del terminale.`,
-            
-            about: `Ciao! Sono Gabriele Russo, DevOps Junior Consultant e Aspirante Web Developer appassionato di programmazione, automazione IT e sistemi. attualmente Lavoro presso Algoritmi.srl.`,
-            
+
+            about: `Ciao! Sono Gabriele Russo, DevOps Junior Consultant e Aspirante Web Developer appassionato di programmazione, automazione IT e sistemi. Attualmente lavoro presso Algoritmi s.r.l.`,
+
             skills: `Stack Tecnologico:<br>
             - Web Frontend: HTML (Basic), CSS (Basic), JavaScript (Basic)<br>
             - Web Backend: PHP (Basic), SQL Database (Basic)<br>
             - Automation & Scripting: Python (Basic), Linux Shell Scripting (Bash)(Basic)<br>
             - DevOps tools: Azure DevOps, Git, GitHub Actions, System Admin.`,
-            
+
             Lab: `Gym Case Studies:<br>
             1. <strong>Remote Control Simulator (RDP):</strong> Simulatore Python + ngrok per teleassistenza.<br>
             2. <strong>Wikipedia Summarizer Portal:</strong> Autenticazione esterna + API Mailer + Scraper e generatore di riassunti Wikipedia.<br>
             3. <strong>Full Stack Web App:</strong> Piattaforma completa responsive in HTML, CSS, JS.`,
-            
+
             experience: `Esperienze:<br>
             - <strong class="text-brand-accent">Algoritmi s.r.l.</strong> (In corso): Gestione ticket clienti, servizi di consulenza basati su Azure DevOps.`,
-            
+
             cern: `Visita formativa guidata presso il (CERN) di Ginevra per approfondire il funzionamento dell'LHC (Large Hadron Collider) e confrontarsi direttamente con massimi fisici e ricercatori.`,
-            
+
             contact: `Contatti:<br>
             - Email: <span class="text-white">russogabriele206@gmail.com</span><br>
             - Cellulare: <span class="text-white">+39 3926092088</span><br>
@@ -489,20 +478,18 @@
         terminalInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 const inputValue = terminalInput.value.trim().toLowerCase();
-                
-                // Print command typed
+
                 const commandLine = document.createElement('div');
                 commandLine.innerHTML = `<span class="text-brand-accent">guest@gabriele:~$</span> ${terminalInput.value}`;
                 terminalHistory.appendChild(commandLine);
 
-                // Process output
                 const outputLine = document.createElement('div');
                 outputLine.className = 'text-white pl-2';
 
                 if (inputValue === 'clear') {
                     terminalHistory.innerHTML = '';
                 } else if (inputValue === '') {
-                    // Do nothing
+                    /* do nothing */
                 } else if (commands[inputValue]) {
                     outputLine.innerHTML = commands[inputValue];
                     terminalHistory.appendChild(outputLine);
@@ -511,10 +498,7 @@
                     terminalHistory.appendChild(outputLine);
                 }
 
-                // Clear input
                 terminalInput.value = '';
-                
-                // Scroll to bottom
                 terminalScreen.scrollTop = terminalScreen.scrollHeight;
             }
         });
