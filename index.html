@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!--inizializzazione script html con classi font e style della pagina web-->
 <html lang="it" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -27,80 +27,15 @@
         body { font-family:'Inter',sans-serif; background-color:#0b0f19; }
         .code-font { font-family:'Fira Code',monospace; }
         ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-track{background:#0b0f19}
-        ::-webkit-scrollbar-thumb{background:#1f2937;border-radius:4px}
-        ::-webkit-scrollbar-thumb:hover{background:#06b6d4}
+        ::-webkit-scrollbar-thumb{background:#86b4f1;border-radius:4px}
+        ::-webkit-scrollbar-thumb:hover{background:#d28cfe}
         .timeline-dot{width:18px;height:18px}
-        #progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#06b6d4,#a855f7);z-index:9999;transition:width .1s linear}
-        /* ── Apple-style scroll reveal ── */
-        .reveal{
-            opacity:0;
-            transform:translateY(40px);
-            filter:blur(4px);
-            transition:opacity .75s cubic-bezier(.16,1,.3,1),
-                        transform .75s cubic-bezier(.16,1,.3,1),
-                        filter .75s cubic-bezier(.16,1,.3,1);
-            will-change:opacity,transform,filter;
-        }
-        .reveal.visible{opacity:1;transform:translateY(0);filter:blur(0)}
-
-        /* Stagger delays */
-        .reveal-delay-1{transition-delay:.12s}
-        .reveal-delay-2{transition-delay:.24s}
-        .reveal-delay-3{transition-delay:.36s}
-
-        /* Auto-stagger direct children inside a .reveal-children container */
-        .reveal-children > *{
-            opacity:0;
-            transform:translateY(32px);
-            filter:blur(3px);
-            transition:opacity .65s cubic-bezier(.16,1,.3,1),
-                        transform .65s cubic-bezier(.16,1,.3,1),
-                        filter .65s cubic-bezier(.16,1,.3,1);
-            will-change:opacity,transform,filter;
-        }
-        .reveal-children.visible > *{opacity:1;transform:translateY(0);filter:blur(0)}
-        .reveal-children.visible > *:nth-child(1){transition-delay:.05s}
-        .reveal-children.visible > *:nth-child(2){transition-delay:.13s}
-        .reveal-children.visible > *:nth-child(3){transition-delay:.21s}
-        .reveal-children.visible > *:nth-child(4){transition-delay:.29s}
-        .reveal-children.visible > *:nth-child(5){transition-delay:.37s}
-        .reveal-children.visible > *:nth-child(6){transition-delay:.45s}
-        .reveal-children.visible > *:nth-child(n+7){transition-delay:.50s}
-
-        /* Slide-in from left variant */
-        .reveal-left{
-            opacity:0;
-            transform:translateX(-36px);
-            filter:blur(3px);
-            transition:opacity .75s cubic-bezier(.16,1,.3,1),
-                        transform .75s cubic-bezier(.16,1,.3,1),
-                        filter .75s cubic-bezier(.16,1,.3,1);
-        }
-        .reveal-left.visible{opacity:1;transform:translateX(0);filter:blur(0)}
-
-        /* Slide-in from right variant */
-        .reveal-right{
-            opacity:0;
-            transform:translateX(36px);
-            filter:blur(3px);
-            transition:opacity .75s cubic-bezier(.16,1,.3,1),
-                        transform .75s cubic-bezier(.16,1,.3,1),
-                        filter .75s cubic-bezier(.16,1,.3,1);
-        }
-        .reveal-right.visible{opacity:1;transform:translateX(0);filter:blur(0)}
-
-        /* Scale-up variant for cards */
-        .reveal-scale{
-            opacity:0;
-            transform:scale(.96) translateY(24px);
-            filter:blur(3px);
-            transition:opacity .7s cubic-bezier(.16,1,.3,1),
-                        transform .7s cubic-bezier(.16,1,.3,1),
-                        filter .7s cubic-bezier(.16,1,.3,1);
-        }
-        .reveal-scale.visible{opacity:1;transform:scale(1) translateY(0);filter:blur(0)}
-        .skill-bar-fill{height:6px;border-radius:3px;background:linear-gradient(90deg,#06b6d4,#a855f7);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-        .cursor::after{content:'|';animation:blink 1s step-end infinite;color:#06b6d4}
+        #progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#9bb1ff,#a855f7);z-index:9999;transition:width .1s linear}
+        .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+        .reveal.visible{opacity:1;transform:translateY(0)}
+        .reveal-delay-1{transition-delay:.1s} .reveal-delay-2{transition-delay:.2s} .reveal-delay-3{transition-delay:.3s}
+        .skill-bar-fill{height:6px;border-radius:3px;background:linear-gradient(90deg,#7edfff,#a855f7);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+        .cursor::after{content:'|';animation:blink 1s step-end infinite;color:#9ceffe}
         @keyframes blink{50%{opacity:0}}
         #mobile-menu{display:none;flex-direction:column}
         #mobile-menu.open{display:flex}
@@ -110,7 +45,7 @@
         .project-card:hover{transform:translateY(-4px)}
         .nav-link.active{color:#06b6d4}
 
-        /* Language toggle */
+        /* style lingua  */
         .lang-btn{
             display:inline-flex;align-items:center;gap:6px;
             background:transparent;border:1px solid rgba(6,182,212,.3);
@@ -122,7 +57,7 @@
         .lang-btn:hover{background:rgba(6,182,212,.15);border-color:rgba(6,182,212,.6)}
         .lang-btn .flag{font-size:14px}
 
-        /* Hide/show by language */
+        /* nascondi/fai vedere lingua */
         [data-lang="en"]{display:none}
         body.en [data-lang="it"]{display:none}
         body.en [data-lang="en"]{display:revert}
@@ -135,7 +70,7 @@
 <body class="text-brand-text antialiased">
 
 <div id="progress-bar"></div>
-
+/* bottone torna su! */
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
     class="w-10 h-10 bg-brand-accent rounded-full flex items-center justify-center text-brand-dark hover:bg-cyan-400 transition-colors"
     aria-label="Torna su / Back to top">
@@ -195,13 +130,13 @@
     </div>
 </header>
 
-<!-- ══ HERO ══ -->
+<!-- ══ sezione principale presentazione ══ -->
 <section id="home" class="min-h-screen pt-24 pb-12 flex flex-col justify-center relative overflow-hidden px-4">
     <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl -z-10"></div>
     <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-purple/10 rounded-full blur-3xl -z-10"></div>
 
     <div class="max-w-4xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div class="lg:col-span-7 space-y-6 reveal-left">
+        <div class="lg:col-span-7 space-y-6">
             <div class="inline-flex items-center space-x-2 bg-gray-800/50 border border-gray-700/60 rounded-full px-3 py-1 text-xs text-brand-accent code-font">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span data-lang="it">Disponibile per nuove esperienze</span>
@@ -245,7 +180,7 @@
         </div>
 
         <!-- Terminal -->
-        <div class="lg:col-span-5 w-full reveal-right">
+        <div class="lg:col-span-5 w-full">
             <div class="bg-slate-900 border border-gray-800 rounded-lg shadow-2xl overflow-hidden w-full max-w-md mx-auto">
                 <div class="bg-slate-950 px-4 py-3 border-b border-gray-800 flex items-center justify-between">
                     <div class="flex space-x-1.5">
@@ -274,9 +209,9 @@
         </div>
     </div>
 
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-1 text-brand-muted/50 text-xs code-font animate-bounce">
+    <!-- <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-1 text-brand-muted/50 text-xs code-font animate-bounce">
         <span>scroll</span><i class="fa-solid fa-chevron-down text-xs"></i>
-    </div>
+    </div> -->
 </section>
 
 <!-- ══ ABOUT ══ -->
@@ -309,9 +244,9 @@
                 <p data-lang="it">Amo mettermi in gioco, risolvere problemi complessi e sono costantemente stimolato dall'apprendere nuove tecnologie e metodologie di lavoro.</p>
                 <p data-lang="en">I love taking on challenges, solving complex problems, and I'm constantly driven to learn new technologies and working methodologies.</p>
             </div>
-            <div class="md:col-span-4 bg-brand-card border border-gray-800 p-6 rounded-xl space-y-4 reveal-scale reveal-delay-2">
+            <div class="md:col-span-4 bg-brand-card border border-gray-800 p-6 rounded-xl space-y-4 reveal reveal-delay-2">
                 <h4 class="text-white font-semibold code-font border-b border-gray-800 pb-2 text-sm">Tech Focus</h4>
-                <div class="flex flex-wrap gap-2 reveal-children">
+                <div class="flex flex-wrap gap-2">
                     <span class="bg-gray-800 text-xs px-2.5 py-1 rounded-full text-brand-accent">Python</span>
                     <span class="bg-gray-800 text-xs px-2.5 py-1 rounded-full text-brand-accent">Azure DevOps</span>
                     <span class="bg-gray-800 text-xs px-2.5 py-1 rounded-full text-brand-accent">HTML & CSS</span>
@@ -418,43 +353,43 @@
                 <span data-lang="it"># competenze</span><span data-lang="en"># skills</span>
             </h2>
             <h3 class="text-3xl font-bold text-white">
-                <span data-lang="it">Stack Tecnologico</span>
-                <span data-lang="en">Tech Stack</span>
+                <span data-lang="it">Linguaggi</span>
+                <span data-lang="en">Languages</span>
             </h3>
             <div class="h-1 w-16 bg-brand-accent mx-auto md:mx-0 rounded"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
             <div class="space-y-1 reveal skill-row">
-                <div class="flex justify-between text-sm"><span class="text-white font-medium">Azure DevOps</span><span class="text-brand-accent code-font text-xs">70%</span></div>
+                <div class="flex justify-between text-sm"><span class="text-white font-medium">Azure DevOps</span><span class="text-brand-accent code-font text-xs">Intermedio Superiore</span></div>
                 <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="70"></div></div>
             </div>
             <div class="space-y-1 reveal reveal-delay-1 skill-row">
-                <div class="flex justify-between text-sm"><span class="text-white font-medium">HTML & CSS</span><span class="text-brand-accent code-font text-xs">65%</span></div>
-                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="65"></div></div>
+                <div class="flex justify-between text-sm"><span class="text-white font-medium">HTML & CSS</span><span class="text-brand-accent code-font text-xs">Intermedio</span></div>
+                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="60"></div></div>
             </div>
             <div class="space-y-1 reveal reveal-delay-1 skill-row">
-                <div class="flex justify-between text-sm"><span class="text-white font-medium">Python</span><span class="text-brand-accent code-font text-xs">50%</span></div>
+                <div class="flex justify-between text-sm"><span class="text-white font-medium">Python</span><span class="text-brand-accent code-font text-xs">Elementare</span></div>
                 <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="50"></div></div>
             </div>
             <div class="space-y-1 reveal reveal-delay-2 skill-row">
-                <div class="flex justify-between text-sm"><span class="text-white font-medium">JavaScript</span><span class="text-brand-accent code-font text-xs">50%</span></div>
+                <div class="flex justify-between text-sm"><span class="text-white font-medium">JavaScript</span><span class="text-brand-accent code-font text-xs">Elementare</span></div>
                 <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="50"></div></div>
             </div>
             <div class="space-y-1 reveal skill-row">
-                <div class="flex justify-between text-sm"><span class="text-white font-medium">SQL</span><span class="text-brand-accent code-font text-xs">45%</span></div>
-                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="45"></div></div>
+                <div class="flex justify-between text-sm"><span class="text-white font-medium">SQL</span><span class="text-brand-accent code-font text-xs">Intermedio Superiore</span></div>
+                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="70"></div></div>
             </div>
             <div class="space-y-1 reveal reveal-delay-1 skill-row">
-                <div class="flex justify-between text-sm"><span class="text-white font-medium">PHP</span><span class="text-brand-accent code-font text-xs">40%</span></div>
-                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="40"></div></div>
+                <div class="flex justify-between text-sm"><span class="text-white font-medium">PHP</span><span class="text-brand-accent code-font text-xs">Intermedio</span></div>
+                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="60"></div></div>
             </div>
             <div class="space-y-1 reveal reveal-delay-2 skill-row">
-                <div class="flex justify-between text-sm"><span class="text-white font-medium">Linux / Bash</span><span class="text-brand-accent code-font text-xs">50%</span></div>
-                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="50"></div></div>
+                <div class="flex justify-between text-sm"><span class="text-white font-medium">Linux / Bash</span><span class="text-brand-accent code-font text-xs">Intermedio</span></div>
+                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="60"></div></div>
             </div>
             <div class="space-y-1 reveal reveal-delay-3 skill-row">
-                <div class="flex justify-between text-sm"><span class="text-white font-medium">Git & GitHub</span><span class="text-brand-accent code-font text-xs">60%</span></div>
-                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="60"></div></div>
+                <div class="flex justify-between text-sm"><span class="text-white font-medium">Git & GitHub</span><span class="text-brand-accent code-font text-xs">Intermedio Superiore</span></div>
+                <div class="h-1.5 bg-gray-800 rounded-full"><div class="skill-bar-fill" data-width="70"></div></div>
             </div>
         </div>
         <div class="mt-12 reveal">
@@ -499,7 +434,7 @@
                 <div class="space-y-4">
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-bold uppercase code-font text-brand-accent">
-                            <span data-lang="it">Sviluppo & Automazione</span><span data-lang="en">Development & Automation</span>
+                            <span data-lang="it">Sviluppo</span><span data-lang="en">Development</span>
                         </span>
                         <i class="fa-brands fa-python text-xl text-yellow-500"></i>
                     </div>
@@ -669,7 +604,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
 
-            <div class="bg-brand-card border border-gray-800 p-6 rounded-xl flex flex-col justify-between reveal-scale">
+            <div class="bg-brand-card border border-gray-800 p-6 rounded-xl flex flex-col justify-between reveal">
                 <div>
                     <h4 class="text-white font-semibold mb-5">
                         <span data-lang="it">Recapiti diretti</span><span data-lang="en">Direct contacts</span>
@@ -708,7 +643,7 @@
                 </div>
             </div>
 
-            <div class="bg-brand-card border border-gray-800 p-6 rounded-xl flex flex-col justify-between reveal-scale reveal-delay-1">
+            <div class="bg-brand-card border border-gray-800 p-6 rounded-xl flex flex-col justify-between reveal reveal-delay-1">
                 <div class="space-y-5">
                     <h4 class="text-white font-semibold">
                         <span data-lang="it">Disponibilità</span><span data-lang="en">Availability</span>
@@ -722,8 +657,7 @@
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                                 <span data-lang="it">Disponibile</span><span data-lang="en">Available</span>
                             </span>
-                        </div>
-                        <div class="flex items-center justify-between py-3 border-b border-gray-800">
+                        </div> <!--<div class="flex items-center justify-between py-3 border-b border-gray-800">
                             <span class="text-brand-muted text-sm">
                                 <span data-lang="it">Freelance / Progetto</span><span data-lang="en">Freelance / Project</span>
                             </span>
@@ -731,7 +665,7 @@
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                                 <span data-lang="it">Disponibile</span><span data-lang="en">Available</span>
                             </span>
-                        </div>
+                        </div>--> 
                         <div class="flex items-center justify-between py-3 border-b border-gray-800">
                             <span class="text-brand-muted text-sm">
                                 <span data-lang="it">Stage / Tirocinio</span><span data-lang="en">Internship</span>
@@ -745,13 +679,13 @@
                             <span class="text-brand-muted text-sm">
                                 <span data-lang="it">Sede di lavoro</span><span data-lang="en">Work location</span>
                             </span>
-                            <span class="text-white text-xs font-semibold">Roma / Remote</span>
+                            <span data-lang="it">In Ufficio</span><span data-lang="en">In Office</span>
                         </div>
                     </div>
                 </div>
                 <div class="mt-6 bg-slate-900 border border-gray-800 rounded-lg p-4 text-xs text-brand-muted leading-relaxed">
-                    <span class="text-brand-accent font-semibold" data-lang="it">💬 Risposta rapida:</span>
-                    <span class="text-brand-accent font-semibold" data-lang="en">💬 Quick reply:</span>
+                    <span class="text-brand-accent font-semibold" data-lang="it"> Risposta rapida:</span>
+                    <span class="text-brand-accent font-semibold" data-lang="en"> Quick reply:</span>
                     <span data-lang="it"> solitamente rispondo entro 24h. Non esitare a scrivermi per qualsiasi opportunità o collaborazione!</span>
                     <span data-lang="en"> I usually reply within 24h. Feel free to reach out for any opportunity or collaboration!</span>
                 </div>
@@ -863,17 +797,11 @@ new IntersectionObserver(entries => {
     }, { threshold: 0.4 }).observe(s)
 );
 
-/* ═══ Reveal on scroll (Apple-style) ═══ */
-const revealSelectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-children';
-const revObs = new IntersectionObserver((entries, obs) => {
-    entries.forEach(e => {
-        if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);   // animate once, like Apple
-        }
-    });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll(revealSelectors).forEach(el => revObs.observe(el));
+/* ═══ Reveal on scroll ═══ */
+const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
 
 /* ═══ Skill bars ═══ */
 const skObs = new IntersectionObserver(entries => {
