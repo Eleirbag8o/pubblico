@@ -24,32 +24,69 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family:'Inter',sans-serif; background-color:#0b0f19; }
+        body { font-family:'Inter',sans-serif; background-color:#000; overflow-x:hidden; }
+        header, section, footer, #progress-bar, #back-to-top { position:relative; z-index:1; }
+
+        /* ── Reveal on scroll */
+        .reveal {
+            opacity:0;
+            transform:translateY(36px);
+            transition:opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-delay-1 { transition-delay:.12s }
+        .reveal-delay-2 { transition-delay:.24s }
+        .reveal-delay-3 { transition-delay:.36s }
+
+        /* word-by-word reveal per i titoli h1/h3 grandi */
+        .reveal-words .word {
+            display:inline-block;
+            opacity:0;
+            transform:translateY(22px);
+            transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal-words.visible .word { opacity:1; transform:translateY(0); }
+        .reveal-words.visible .word:nth-child(1){transition-delay:.00s}
+        .reveal-words.visible .word:nth-child(2){transition-delay:.08s}
+        .reveal-words.visible .word:nth-child(3){transition-delay:.16s}
+        .reveal-words.visible .word:nth-child(4){transition-delay:.24s}
+        .reveal-words.visible .word:nth-child(5){transition-delay:.32s}
+        .reveal-words.visible .word:nth-child(6){transition-delay:.40s}
+
+        /* glass navbar */
+        /* glass cards */
+        .project-card {
+            background: rgba(255,255,255,.05) !important;
+            border: 1px solid rgba(255,255,255,.10) !important;
+            backdrop-filter:blur(16px);
+            -webkit-backdrop-filter:blur(16px);
+        }
+        .project-card:hover {
+            background: rgba(255,255,255,.08) !important;
+            border-color: rgba(6,182,212,.4) !important;
+            transform:translateY(-4px);
+        }
+
         .code-font { font-family:'Fira Code',monospace; }
-        ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-track{background:#0b0f19}
+        ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-track{background:#000}
         ::-webkit-scrollbar-thumb{background:#86b4f1;border-radius:4px}
         ::-webkit-scrollbar-thumb:hover{background:#d28cfe}
         .timeline-dot{width:18px;height:18px}
-        #progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#8ee4fa,#a855f7);z-index:9999;transition:width .1s linear}
-        .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
-        .reveal.visible{opacity:1;transform:translateY(0)}
-        .reveal-delay-1{transition-delay:.1s} .reveal-delay-2{transition-delay:.2s} .reveal-delay-3{transition-delay:.3s}
-        .skill-bar-fill{height:6px;border-radius:3px;background:linear-gradient(90deg,#7edfff,#a855f7);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-        .cursor::after{content:'|';animation:blink 1s step-end infinite;color:#9ceffe}
+        #progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#a1ecff,#c58ff8);z-index:9999;transition:width .1s linear}
+        .skill-bar-fill{height:6px;border-radius:3px;background:linear-gradient(90deg,#a6e9ff,#cd9cfb);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+        .cursor::after{content:'|';animation:blink 1s step-end infinite;color:#a6eefb}
         @keyframes blink{50%{opacity:0}}
         #mobile-menu{display:none;flex-direction:column}
         #mobile-menu.open{display:flex}
         #back-to-top{position:fixed;bottom:2rem;right:2rem;opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:50}
         #back-to-top.visible{opacity:1;pointer-events:all}
-        .project-card{transition:transform .3s ease,border-color .3s ease}
-        .project-card:hover{transform:translateY(-4px)}
-        .nav-link.active{color:#06b6d4}
+        .nav-link.active{color:#94e8f7}
 
         /* style lingua  */
         .lang-btn{
             display:inline-flex;align-items:center;gap:6px;
             background:transparent;border:1px solid rgba(6,182,212,.3);
-            color:#06b6d4;padding:4px 12px;border-radius:6px;
+            color:#96e7f5;padding:4px 12px;border-radius:6px;
             font-size:11px;font-family:'Fira Code',monospace;font-weight:600;
             cursor:pointer;transition:background .2s,border-color .2s;
             letter-spacing:.05em;
@@ -69,6 +106,7 @@
 </head>
 <body class="text-brand-text antialiased">
 
+<canvas id="webgl-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
 <div id="progress-bar"></div>
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
     class="w-10 h-10 bg-brand-accent rounded-full flex items-center justify-center text-brand-dark hover:bg-cyan-400 transition-colors"
@@ -77,7 +115,7 @@
 </button>
 
 <!-- ══ NAVBAR ══ -->
-<header class="fixed top-0 left-0 w-full z-50 bg-brand-dark/80 backdrop-blur-md border-b border-gray-800/80">
+<header class="fixed top-0 left-0 w-full z-50 bg-black/30 backdrop-blur-2xl border-b border-white/10">
     <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <a href="#" class="code-font text-brand-accent font-bold text-lg tracking-wider">&lt;GR/&gt;</a>
 
@@ -117,7 +155,7 @@
     </div>
 
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="md:hidden bg-brand-dark border-t border-gray-800 px-4 py-4 space-y-3 text-sm font-medium">
+    <div id="mobile-menu" class="md:hidden bg-black/50 backdrop-blur-2xl border-t border-white/10 px-4 py-4 space-y-3 text-sm font-medium">
         <a href="#home"       class="mobile-nav-link block py-1 hover:text-brand-accent transition-colors">Home</a>
         <a href="#about"      class="mobile-nav-link block py-1 hover:text-brand-accent transition-colors"><span data-lang="it">Chi Sono</span><span data-lang="en">About</span></a>
         <a href="#experience" class="mobile-nav-link block py-1 hover:text-brand-accent transition-colors"><span data-lang="it">Esperienza & Studi</span><span data-lang="en">Experience & Education</span></a>
@@ -131,8 +169,7 @@
 
 <!-- ══ sezione principale presentazione ══ -->
 <section id="home" class="min-h-screen pt-24 pb-12 flex flex-col justify-center relative overflow-hidden px-4">
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl -z-10"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-purple/10 rounded-full blur-3xl -z-10"></div>
+
 
     <div class="max-w-4xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-7 space-y-6">
@@ -749,7 +786,134 @@
 </footer>
 
 <script>
-/* ═══ Language toggle ═══ */
+/* ════════════════════════════════════════════
+   WEBGL AURORA — Apple Intelligence style
+   Metaballs fluidi via fragment shader
+   ════════════════════════════════════════════ */
+(function () {
+    const canvas = document.getElementById('webgl-bg');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return;
+
+    const VS = `
+        attribute vec2 a_pos;
+        void main(){ gl_Position = vec4(a_pos,0,1); }
+    `;
+
+    const FS = `
+        precision highp float;
+        uniform vec2  u_res;
+        uniform float u_time;
+
+        /* ── 6 sfere luminose ── */
+        /* ogni sfera: cx,cy (0..1), raggio, velocità, fase */
+        vec3 blob(vec2 uv, vec2 center, float radius, vec3 color){
+            float d = length(uv - center);
+            float s = smoothstep(radius, 0.0, d);
+            return color * s;
+        }
+
+        void main(){
+            vec2 uv = gl_FragCoord.xy / u_res;
+            /* correggi aspect ratio */
+            float ar = u_res.x / u_res.y;
+            vec2 p = vec2(uv.x * ar, uv.y);
+            float t = u_time;
+
+            /* posizioni animate con sin/cos sfasati */
+            vec2 c1 = vec2(.18*ar + sin(t*.31)*.18*ar,  .72 + cos(t*.19)*.20);
+            vec2 c2 = vec2(.82*ar + cos(t*.23)*.15*ar,  .28 + sin(t*.27)*.22);
+            vec2 c3 = vec2(.50*ar + sin(t*.17+1.2)*.22*ar, .50 + cos(t*.21+2.1)*.18);
+            vec2 c4 = vec2(.28*ar + cos(t*.29+3.0)*.16*ar, .22 + sin(t*.15+1.5)*.16);
+            vec2 c5 = vec2(.70*ar + sin(t*.25+4.5)*.20*ar, .78 + cos(t*.33+0.8)*.15);
+            vec2 c6 = vec2(.50*ar + cos(t*.13+2.8)*.25*ar, .12 + sin(t*.22+3.3)*.10);
+
+            /* colori: cyan, viola, indaco, azzurro, viola chiaro, teal */
+            vec3 col = vec3(0.0);
+            col += blob(p, c1, .38, vec3(.024,.714,.831));  /* cyan    */
+            col += blob(p, c2, .34, vec3(.659,.333,.969));  /* viola   */
+            col += blob(p, c3, .30, vec3(.388,.400,.945));  /* indaco  */
+            col += blob(p, c4, .26, vec3(.055,.647,.914));  /* azzurro */
+            col += blob(p, c5, .28, vec3(.753,.510,.988));  /* lilla   */
+            col += blob(p, c6, .24, vec3(.031,.569,.706));  /* teal    */
+
+            /* tono mapping leggero — evita oversaturation */
+            col = col / (col + vec3(.6));
+            col = pow(col, vec3(.85));
+
+            /* vignette nera ai bordi */
+            float vx = uv.x * (1.0 - uv.x) * 4.0;
+            float vy = uv.y * (1.0 - uv.y) * 4.0;
+            float vig = clamp(vx * vy, 0.0, 1.0);
+            vig = pow(vig, .35);
+            col *= vig;
+
+            gl_FragColor = vec4(col, 1.0);
+        }
+    `;
+
+    function compile(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        return s;
+    }
+    const prog = gl.createProgram();
+    gl.attachShader(prog, compile(gl.VERTEX_SHADER,   VS));
+    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS));
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+
+    /* fullscreen quad */
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'a_pos');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+    const uRes  = gl.getUniformLocation(prog, 'u_res');
+    const uTime = gl.getUniformLocation(prog, 'u_time');
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+
+    function loop(ts) {
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.uniform1f(uTime, ts * 0.001);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    requestAnimationFrame(loop);
+})();
+
+
+/* ════════════════════════════════════════════
+   WORD-BY-WORD REVEAL
+   Avvolge ogni parola in <span class="word">
+   poi le anima quando la sezione entra in vista
+   ════════════════════════════════════════════ */
+document.querySelectorAll('h1, h3').forEach(el => {
+    /* salta elementi con data-lang (doppia lingua, non toccarli) */
+    if (el.querySelector('[data-lang]')) return;
+    el.classList.add('reveal-words');
+    /* rimuovi reveal generico se presente */
+    el.classList.remove('reveal');
+    el.innerHTML = el.textContent
+        .split(' ')
+        .map(w => `<span class="word">${w}&nbsp;</span>`)
+        .join('');
+});
+
+/* ════════════════════════════════════════════
+   Language toggle
+   ════════════════════════════════════════════ */
 let currentLang = 'it';
 const langBtn   = document.getElementById('lang-toggle');
 const langFlag  = document.getElementById('lang-flag');
@@ -822,9 +986,14 @@ new IntersectionObserver(entries => {
 
 /* ═══ Reveal on scroll ═══ */
 const revObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            revObs.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .reveal-words').forEach(el => revObs.observe(el));
 
 /* ═══ Skill bars ═══ */
 const skObs = new IntersectionObserver(entries => {
